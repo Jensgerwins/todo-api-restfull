@@ -2,7 +2,10 @@ const textFeld = document.querySelector("#text-Feld");
 const addTodos = document.querySelector("#add-Todos");
 const deleteTodos = document.querySelector("#delete-Todos");
 const ulList = document.querySelector("#ul-List");
-
+const filterAll = document.querySelector("#filter-all");
+const filterOpen = document.querySelector("#filter-open");
+const filterDone = document.querySelector("#filter-done");
+const filterInputs = document.querySelectorAll("input[name=radio]");
 let todos = [];
 
 function loadFetch() {
@@ -88,6 +91,7 @@ deleteTodos.addEventListener("click", () => {
 
 
 })
+
 
 
 
