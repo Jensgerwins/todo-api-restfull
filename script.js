@@ -2,7 +2,7 @@ const textFeld = document.querySelector("#text-Feld");
 const addTodos = document.querySelector("#add-Todos");
 const deleteTodos = document.querySelector("#delete-Todos");
 const ulList = document.querySelector("#ul-List");
-const filterOptions = document.querySelector("#filterOptions");
+const filterInputs = document.querySelectorAll("input[name=radio]");
 let todos = [];
 let todosDone = [];
 function loadFetch() {
@@ -24,6 +24,7 @@ function render() {
         newCheck.checked = todos.done;
         newCheck.addEventListener("change", () => {
             todos.done = !todos.done;
+            filtern();
             fetch("http://localhost:3000/todos/" + todos.id, {
                 method: "PUT",
                 headers: {
@@ -38,9 +39,23 @@ function render() {
         newLi.append(newCheck, text);
         ulList.append(newLi);
 
-    });
+    })
 
 }
+
+filterInputs.forEach(input => {
+    input.addEventListener("change", (event) => {
+        filtern(event.target.value);
+
+
+    })
+
+})
+
+
+
+
+
 
 loadFetch();
 
@@ -89,30 +104,40 @@ deleteTodos.addEventListener("click", () => {
 
 })
 
-filterOptions.addEventListener("change", () => {
+function filtern(filter = "all") {
+    let filternTodos = todos;
 
+    if (filter === "done") {
+        filternTodos = todos.filter(todos => todos.done);
+    } else if (filter === "open") {
+        filternTodos = todos.filter(todos => !todos.done);
 
+    }
 
-    if (todos.done === true) {
-        todos.forEach(todos => {
-            console.log(todos)
-            ulList.innerHTML = "";
-            const newLi = document.createElement("li");
-            const newCheck = document.createElement("input");
-            newCheck.type = "checkbox";
-            newCheck.checked = todos.done;
-            const text = document.createTextNode(todos.description);
-            newLi.append(newCheck, text);
-            ulList.append(newLi);
+    ulList.innerHTML = "";
+    for (let todos of filternTodos) {
+        const newLi = document.createElement("li");
+        const newCheck = document.createElement("input");
+        newCheck.type = "checkbox";
+        newCheck.checked = todos.done;
+        const text = document.createTextNode(todos.description);
 
-        })
-
+        newLi.append(newCheck, text);
+        ulList.append(newLi);
 
     }
 
 
 
-});
+
+}
+
+
+filtern();
+
+
+
+
 
 
 

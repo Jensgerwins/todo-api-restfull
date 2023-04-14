@@ -24,12 +24,12 @@
     },
     {
       "description": "lerne css",
-      "done": false,
+      "done": true,
       "id": 2
     },
     {
       "description": "lerne javascript",
-      "done": true,
+      "done": false,
       "id": 3
     }
   ]
