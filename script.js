@@ -131,8 +131,6 @@ function filtern(filter = "all") {
 
 
 }
-
-
 filtern();
 
 
